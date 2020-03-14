@@ -23,7 +23,9 @@ namespace Calculator.Domain.UnitTests
 			_binaryOperations = new List<BinaryOperation<decimal>>
 			{
 				new BinaryOperation<decimal>("+", 10, (a, b) => a + b),
-				new BinaryOperation<decimal>("*", 11, (a, b) => a * b),
+				new BinaryOperation<decimal>("-", 11, (a, b) => a - b),
+				new BinaryOperation<decimal>("*", 21, (a, b) => a * b),
+				new BinaryOperation<decimal>("/", 22, (a, b) => a / b),
 			};
 
 			_delimeter = ' ';
@@ -58,6 +60,16 @@ namespace Calculator.Domain.UnitTests
 			var result = _parser.Parse(expression);
 
 			Assert.AreEqual($"5{_delimeter}2{_delimeter}+{_delimeter}123{_delimeter}*{_delimeter}", result);
+		}
+
+		[Test]
+		public void Parse_Expression_With_Brackets_And_DifferentPriority_Operators_Test()
+		{
+			var expression = "17-(54+12*2)/74";
+
+			var result = _parser.Parse(expression);
+
+			Assert.AreEqual($"17 54 12 2 * + 74 / - ".Replace(' ', _delimeter), result);
 		}
 
 		[Test]
