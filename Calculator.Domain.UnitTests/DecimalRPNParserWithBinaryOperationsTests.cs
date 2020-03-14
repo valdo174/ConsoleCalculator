@@ -28,7 +28,7 @@ namespace Calculator.Domain.UnitTests
 		}
 
 		[Test]
-		public void Parse_Expression_With_Two_Operands()
+		public void Parse_Expression_With_Two_Operands_Test()
 		{
 			var expression = "2+3";
 
@@ -38,7 +38,7 @@ namespace Calculator.Domain.UnitTests
 		}
 
 		[Test]
-		public void Parse_Expression_With_DoubleDigit_Operand()
+		public void Parse_Expression_With_DoubleDigit_Operand_Test()
 		{
 			var expression = "26+3";
 
@@ -48,7 +48,7 @@ namespace Calculator.Domain.UnitTests
 		}
 
 		[Test]
-		public void Parse_Expression_With_DifferentPriority_Operators()
+		public void Parse_Expression_With_DifferentPriority_Operators_Test()
 		{
 			var expression = "2+3*4";
 

@@ -10,14 +10,14 @@ namespace Calculator.Domain.Operations
 		/// <summary>
 		/// Определение операции
 		/// </summary>
-		private readonly Func<decimal, decimal, decimal> _arithmeticFunction;
+		private readonly Func<T, T, T> _arithmeticFunction;
 
 		/// <summary>
 		/// Инициалзиирует класс Бинарной алгебраической операции с десятичными числами
 		/// </summary>
 		/// <param name="mark">Обозначение операции</param>
 		/// <param name="function">Определение операции</param>
-		public BinaryOperation(string mark, int priority, Func<decimal, decimal, decimal> function)
+		public BinaryOperation(string mark, int priority, Func<T, T, T> function)
 			: base(mark, priority)
 		{
 			_arithmeticFunction = function;
@@ -30,6 +30,11 @@ namespace Calculator.Domain.Operations
 		public override T Calculate()
 		{
 			throw new NotImplementedException();
+		}
+
+		public T Calculate(T firstOperand, T secondOperand)
+		{
+			return _arithmeticFunction(firstOperand, secondOperand);
 		}
 	}
 }
