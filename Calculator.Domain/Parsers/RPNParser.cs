@@ -92,7 +92,7 @@ namespace Calculator.Domain.Parsers
 
 			for (int i = 0; i < reverseExpression.Length; i++)
 			{
-				if (Char.IsDigit(reverseExpression[i]))
+				if (char.IsDigit(reverseExpression[i]))
 				{
 					string number = string.Empty;
 
