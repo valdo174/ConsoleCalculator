@@ -33,5 +33,25 @@ namespace Calculator.Domain.UnitTests
 
 			Assert.AreEqual(result, "23+");
 		}
+
+		[Test]
+		public void Parse_Expression_With_DoubleDigit_Operand()
+		{
+			var expression = "26+3";
+
+			var result = _parser.Parse(expression);
+
+			Assert.AreEqual(result, "26 3+" );
+		}
+
+		[Test]
+		public void Parse_Expression_With_DifferentPriority_Operators()
+		{
+			var expression = "2+3*4";
+
+			var result = _parser.Parse(expression);
+
+			Assert.AreEqual(result, "234*+");
+		}
 	}
 }
