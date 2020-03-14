@@ -12,21 +12,79 @@ namespace Calculator.Domain.Parsers
 	{
 		private readonly char _delimeter;
 
-		private readonly char[] _brackets;
+		private const char _openingBracket = '(';
+		private const char _closingBracket = ')';
 
 		public RPNParser(IEnumerable<BaseOperation<T>> availableOperations, char delimeter = ' ')
 		{
 			AvailableOperations = availableOperations;
 			_delimeter = delimeter;
-
-			_brackets = new char[] { '(', ')' };
 		}
 
 		public IEnumerable<BaseOperation<T>> AvailableOperations { get; set; }
 
 		public string Parse(string expression)
 		{
-			throw new NotImplementedException();
+			var result = string.Empty;
+			var operationStack = new Stack<char>();
+
+			for(int i = 0; i < expression.Length; i++)
+			{
+				if (IsDelimeter(expression[i]))
+					continue;
+
+				if (char.IsDigit(expression[i]))
+				{
+					while (!IsDelimeter(expression[i]) && 
+						!IsOperator(expression[i], out BaseOperation<T> oper))
+					{
+						result += expression[i];
+						i++;
+
+						if (i == expression.Length) 
+							break;
+					}
+
+					result += " ";
+					i--;
+				}
+
+				if (IsOperator(expression[i], out BaseOperation<T> operation))
+				{
+					if (IsOpeningBracket(expression[i]))
+					{
+						operationStack.Push(expression[i]);
+					}
+					else if (IsClosingBracket(expression[i]))
+					{
+						var pop = operationStack.Pop();
+
+						while (!(IsOpeningBracket(pop)))
+						{
+							result += pop.ToString() + ' ';
+							pop = operationStack.Pop();
+						}
+					}
+					else
+					{
+						if (operationStack.Count > 0 && 
+							IsOperator(operationStack.Peek(), out BaseOperation<T> peekOperation))
+						{
+							if (operation.Priority <= peekOperation.Priority)
+							{
+								result += operationStack.Pop().ToString() + " ";
+							}
+						}
+						
+						operationStack.Push(char.Parse(expression[i].ToString()));
+					}
+				}
+			}
+
+			while (operationStack.Count > 0)
+				result += operationStack.Pop() + " ";
+
+			return result;
 		}
 
 		private bool IsDelimeter(char symbol)
@@ -49,9 +107,14 @@ namespace Calculator.Domain.Parsers
 			return false;
 		}
 
-		private bool IsBracket(char symbol)
+		private bool IsOpeningBracket(char symbol)
 		{
-			return _brackets.Contains(symbol);
+			return symbol.Equals(_openingBracket);
+		}
+
+		private bool IsClosingBracket(char symbol)
+		{
+			return symbol.Equals(_closingBracket);
 		}
 	}
 }

@@ -13,6 +13,8 @@ namespace Calculator.Domain.UnitTests
 	{
 		private IParser<decimal> _parser;
 
+		private char _delimeter;
+
 		private List<BinaryOperation<decimal>> _binaryOperations;
 
 		[SetUp]
@@ -24,7 +26,8 @@ namespace Calculator.Domain.UnitTests
 				new BinaryOperation<decimal>("*", 11, (a, b) => a * b),
 			};
 
-			_parser = new RPNParser<decimal>(_binaryOperations);
+			_delimeter = ' ';
+			_parser = new RPNParser<decimal>(_binaryOperations, _delimeter);
 		}
 
 		[Test]
@@ -34,7 +37,7 @@ namespace Calculator.Domain.UnitTests
 
 			var result = _parser.Parse(expression);
 
-			Assert.AreEqual(result, "23+");
+			Assert.AreEqual($"2{_delimeter}3{_delimeter}+{_delimeter}", result);
 		}
 
 		[Test]
@@ -44,7 +47,7 @@ namespace Calculator.Domain.UnitTests
 
 			var result = _parser.Parse(expression);
 
-			Assert.AreEqual(result, "26 3+" );
+			Assert.AreEqual($"26{_delimeter}3{_delimeter}+{_delimeter}", result);
 		}
 
 		[Test]
@@ -54,7 +57,7 @@ namespace Calculator.Domain.UnitTests
 
 			var result = _parser.Parse(expression);
 
-			Assert.AreEqual(result, "234*+");
+			Assert.AreEqual($"2{_delimeter}3{_delimeter}4{_delimeter}*{_delimeter}+{_delimeter}", result);
 		}
 	}
 }

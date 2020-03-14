@@ -11,13 +11,13 @@ namespace Calculator.Domain.Operations
 		public BaseOperation(string mark, int priority)
 		{
 			Mark = mark;
-			OperationPriority = priority;
+			Priority = priority;
 		}
 
 		/// <summary>
 		/// Приоритет операции относиельно других операций в выражении
 		/// </summary>
-		public int OperationPriority { get; protected set; }
+		public int Priority { get; protected set; }
 
 		/// <summary>
 		/// Обозначение операции
