@@ -1,9 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using Calculator.Domain.Operations;
+using System.Collections.Generic;
 
 namespace Calculator.Domain.Validators
 {
-	public interface IExpressionsValidator
+	public interface IExpressionsValidator<T>
 	{
-		bool Validate(string expression, IEnumerable<string> availableOperations);
+		bool ValidateAvailableOperation(string expression, IEnumerable<BaseOperation<T>> availableOperations);
+
+		bool BracketsValidation(string expression);
 	}
 }
