@@ -57,7 +57,7 @@ namespace Calculator.Domain.UnitTests
 		[TestCase("2^3")]
 		public void AvailableOperations_Validation_Test_With_Bad_Result(string value)
 		{
-			Assert.AreEqual(true, _validator.ValidateAvailableOperation(value, _binaryOperations));
+			Assert.AreEqual(false, _validator.ValidateAvailableOperation(value, _binaryOperations));
 		}
 	}
 }
