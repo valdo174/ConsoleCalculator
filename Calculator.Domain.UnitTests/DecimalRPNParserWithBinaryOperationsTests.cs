@@ -51,6 +51,16 @@ namespace Calculator.Domain.UnitTests
 		}
 
 		[Test]
+		public void Parse_Expression_With_Brackets_Test()
+		{
+			var expression = "(5+2)*123";
+
+			var result = _parser.Parse(expression);
+
+			Assert.AreEqual($"5{_delimeter}2{_delimeter}+{_delimeter}123{_delimeter}*{_delimeter}", result);
+		}
+
+		[Test]
 		public void Parse_Expression_With_DifferentPriority_Operators_Test()
 		{
 			var expression = "2+3*4";
