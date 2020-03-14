@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Calculator.Domain.Parser
+namespace Calculator.Domain.Parsers
 {
 	public interface IParser
 	{
