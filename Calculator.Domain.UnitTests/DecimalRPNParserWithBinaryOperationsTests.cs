@@ -1,27 +1,30 @@
+using Calculator.Domain.Operations;
 using Calculator.Domain.Parsers;
 using NUnit.Framework;
 using System.Collections.Generic;
 
 namespace Calculator.Domain.UnitTests
 {
-	public class Tests
+	/// <summary>
+	/// Ќабор тестов дл€ парсера по алгоритму обратной польской нотации
+	/// с набором целых и дес€тичных чисел
+	/// </summary>
+	public class DecimalRPNParserWithBinaryOperationsTests
 	{
-		private IParser _parser;
+		private IParser<decimal> _parser;
 
-		private Dictionary<string, int> _operations;
+		private List<BinaryOperation<decimal>> _binaryOperations;
 
 		[SetUp]
 		public void Setup()
 		{
-			_operations = new Dictionary<string, int>()
+			_binaryOperations = new List<BinaryOperation<decimal>>
 			{
-				{ "+", 0},
-				{ "-", 1},
-				{ "+", 20},
-				{ "-", 21}
+				new BinaryOperation<decimal>("+", 10, (a, b) => a + b),
+				new BinaryOperation<decimal>("*", 11, (a, b) => a * b),
 			};
 
-			_parser = new RPNParser(_operations);
+			_parser = new RPNParser<decimal>(_binaryOperations);
 		}
 
 		[Test]

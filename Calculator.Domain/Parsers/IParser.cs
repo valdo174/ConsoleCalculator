@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using Calculator.Domain.Operations;
+using System.Collections.Generic;
 
 namespace Calculator.Domain.Parsers
 {
-	public interface IParser
+	public interface IParser<T>
 	{
 		string Parse(string expression);
 
-		Dictionary<string, int> OperationPriorities { get; }
+		IEnumerable<BaseOperation<T>> AvailableOperations { get; }
 	}
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Calculator.Domain.Operations;
+using System;
 using System.Collections.Generic;
 
 namespace Calculator.Domain.Parsers
@@ -6,14 +7,14 @@ namespace Calculator.Domain.Parsers
 	/// <summary>
 	/// Reverse Polish Notation Parser
 	/// </summary>
-	public sealed class RPNParser : IParser
+	public sealed class RPNParser<T> : IParser<T>
 	{
-		public RPNParser(Dictionary<string, int> operationPriorities)
+		public RPNParser(IEnumerable<BaseOperation<T>> availableOperations)
 		{
-			OperationPriorities = operationPriorities;
+			AvailableOperations = availableOperations;
 		}
 
-		public Dictionary<string, int> OperationPriorities
+		public IEnumerable<BaseOperation<T>> AvailableOperations
 		{
 			get { throw new NotImplementedException(); }
 			private set { }
