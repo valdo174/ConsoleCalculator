@@ -43,6 +43,26 @@ namespace Calculator.Domain.UnitTests
 		}
 
 		[Test]
+		public void Parse_Expression_With_Two_DecimalOperands_Test()
+		{
+			var expression = "2.0+3.0";
+
+			var result = _parser.Parse(expression);
+
+			Assert.AreEqual($"2.0{_delimeter}3.0{_delimeter}+{_delimeter}", result);
+		}
+
+		[Test]
+		public void Parse_Expression_With_Two_DecimalAndIntegerOperands_Test()
+		{
+			var expression = "2.0+3";
+
+			var result = _parser.Parse(expression);
+
+			Assert.AreEqual($"2.0{_delimeter}3{_delimeter}+{_delimeter}", result);
+		}
+
+		[Test]
 		public void Parse_Expression_With_DoubleDigit_Operand_Test()
 		{
 			var expression = "26+3";
