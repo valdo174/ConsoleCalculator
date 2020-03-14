@@ -9,9 +9,12 @@ namespace Calculator.Domain.Parsers
 	/// </summary>
 	public sealed class RPNParser<T> : IParser<T>
 	{
-		public RPNParser(IEnumerable<BaseOperation<T>> availableOperations)
+		private readonly char _delimeter;
+
+		public RPNParser(IEnumerable<BaseOperation<T>> availableOperations, char delimeter = ' ')
 		{
 			AvailableOperations = availableOperations;
+			_delimeter = delimeter;
 		}
 
 		public IEnumerable<BaseOperation<T>> AvailableOperations
