@@ -42,7 +42,7 @@ namespace Calculator.Domain.UnitTests
 			var firstOperand = 123.1m;
 			var secondOperand = 0m;
 
-			Assert.Throws<OperationCalculateException>(() => _addOperation.Calculate(firstOperand, secondOperand));
+			Assert.Throws<OperationCalculateException>(() => _devideOperation.Calculate(firstOperand, secondOperand));
 		}
 	}
 }
