@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Calculator.Domain.Operations
+﻿namespace Calculator.Domain.Operations
 {
 	/// <summary>
 	/// Базовый класс алгебраической операции
