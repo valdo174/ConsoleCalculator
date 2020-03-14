@@ -6,13 +6,13 @@ namespace Calculator.Domain.UnitTests
 	public class BinaryOperationWithDecimalOperandsTests
 	{
 		private BinaryOperation<decimal> _addOperation;
-		private BinaryOperation<decimal> _devideOperation;
+		private BinaryOperation<decimal> _divideOperation;
 
 		[SetUp]
 		public void SetUp()
 		{
 			_addOperation = new BinaryOperation<decimal>("+", 0, (a, b) => a + b);
-			_devideOperation = new BinaryOperation<decimal>("/", 0, (a, b) => a / b);
+			_divideOperation = new BinaryOperation<decimal>("/", 0, (a, b) => a / b);
 		}
 
 		[Test]
@@ -42,7 +42,7 @@ namespace Calculator.Domain.UnitTests
 			var firstOperand = 123.1m;
 			var secondOperand = 0m;
 
-			Assert.Throws<OperationCalculateException>(() => _devideOperation.Calculate(firstOperand, secondOperand));
+			Assert.Throws<OperationCalculateException>(() => _divideOperation.Calculate(firstOperand, secondOperand));
 		}
 	}
 }
