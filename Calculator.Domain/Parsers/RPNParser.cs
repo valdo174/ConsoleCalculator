@@ -31,12 +31,15 @@ namespace Calculator.Domain.Parsers
 			for(int i = 0; i < expression.Length; i++)
 			{
 				if (IsDelimeter(expression[i]))
-					continue;
-
-				if (char.IsDigit(expression[i]))
 				{
-					while (!IsDelimeter(expression[i]) && 
-						!IsOperator(expression[i], out BaseOperation<T> oper))
+					continue;
+				}
+				else if (char.IsDigit(expression[i]))
+				{
+					while (!IsOperator(expression[i], out BaseOperation<T> oper) 
+						&& !IsDelimeter(expression[i])
+						&& !IsClosingBracket(expression[i])
+						&& !IsOpeningBracket(expression[i]))
 					{
 						result += expression[i];
 						i++;
@@ -48,36 +51,32 @@ namespace Calculator.Domain.Parsers
 					result += " ";
 					i--;
 				}
-
-				if (IsOperator(expression[i], out BaseOperation<T> operation))
+				else if (IsOpeningBracket(expression[i]))
 				{
-					if (IsOpeningBracket(expression[i]))
-					{
-						operationStack.Push(expression[i]);
-					}
-					else if (IsClosingBracket(expression[i]))
-					{
-						var pop = operationStack.Pop();
+					operationStack.Push(expression[i]);
+				}
+				else if (IsClosingBracket(expression[i]))
+				{
+					var pop = operationStack.Pop();
 
-						while (!(IsOpeningBracket(pop)))
-						{
-							result += pop.ToString() + ' ';
-							pop = operationStack.Pop();
-						}
-					}
-					else
+					while (!(IsOpeningBracket(pop)))
 					{
-						if (operationStack.Count > 0 && 
-							IsOperator(operationStack.Peek(), out BaseOperation<T> peekOperation))
-						{
-							if (operation.Priority <= peekOperation.Priority)
-							{
-								result += operationStack.Pop().ToString() + " ";
-							}
-						}
-						
-						operationStack.Push(char.Parse(expression[i].ToString()));
+						result += pop.ToString() + ' ';
+						pop = operationStack.Pop();
 					}
+				}
+				else if (IsOperator(expression[i], out BaseOperation<T> operation))
+				{
+					if (operationStack.Count > 0 &&
+							IsOperator(operationStack.Peek(), out BaseOperation<T> peekOperation))
+					{
+						if (operation.Priority <= peekOperation.Priority)
+						{
+							result += operationStack.Pop().ToString() + " ";
+						}
+					}
+
+					operationStack.Push(char.Parse(expression[i].ToString()));
 				}
 			}
 
