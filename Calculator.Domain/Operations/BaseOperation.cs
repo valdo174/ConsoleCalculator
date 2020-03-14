@@ -23,5 +23,11 @@ namespace Calculator.Domain.Operations
 		/// Обозначение операции
 		/// </summary>
 		public string Mark { get; protected set; }
+
+		/// <summary>
+		/// Вычислить результат операции
+		/// </summary>
+		/// <returns></returns>
+		public abstract T Calculate();
 	}
 }

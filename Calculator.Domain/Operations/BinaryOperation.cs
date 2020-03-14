@@ -24,6 +24,20 @@ namespace Calculator.Domain.Operations
 			_arithmeticFunction = function;
 		}
 
+		/// <summary>
+		/// Первый (левый) операнд
+		/// </summary>
+		public T FirstOperand { get; set; }
+
+		/// <summary>
+		/// Второй (правый) операнд
+		/// </summary>
+		public T SecondOperand { get; set; }
+
+		/// <summary>
+		/// Вычислить результат операции
+		/// </summary>
+		/// <returns></returns>
 		public T Calculate(T firstOperand, T secondOperand)
 		{
 			try
@@ -47,6 +61,26 @@ namespace Calculator.Domain.Operations
 			{
 				throw ex;
 			}
+		}
+
+		/// <summary>
+		/// Вычислить результат операции
+		/// </summary>
+		/// <returns></returns> 
+		public override T Calculate()
+		{
+			if (FirstOperand == null)
+				throw new OperationOperandException($"Не задан первый (левый) операнд операции {Mark}");
+
+			if (SecondOperand == null)
+				throw new OperationOperandException($"Не задан второй (правый) операнд операции {Mark}");
+
+			var result = Calculate(FirstOperand, SecondOperand);
+
+			if (result == null)
+				throw new OperationOperandException($"Неправильно заданы операнды для операции {Mark}");
+
+			return result;
 		}
 	}
 }
