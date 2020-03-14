@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace Calculator.Domain.Parsers
 {
 	/// <summary>
-	/// Reverse Polish Notation Parser
+	/// Парсер арифметических выражений по алгоритму обратной польской нотации
 	/// </summary>
 	public sealed class RPNParser<T> : IParser<T>
 	{
