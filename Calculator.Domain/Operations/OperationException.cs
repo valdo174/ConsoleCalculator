@@ -1,10 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Calculator.Domain.Operations
 {
 	public class OperationException : Exception
 	{
+		public OperationException(string message, Exception innerException) : base (message, innerException)
+		{
+
+		}
 	}
 }

@@ -27,16 +27,6 @@ namespace Calculator.Domain.UnitTests
 		}
 
 		[Test]
-		public void ThrowException_If_Operand_Not_SetUp_Test()
-		{
-			var firstOperand = 123.1m;
-
-			_addOperation.FirstOperand = firstOperand;
-
-			Assert.Throws<OperationOperandException>(() => _addOperation.Calculate());
-		}
-
-		[Test]
 		public void ThrowException_If_IncorrectOperation_Test()
 		{
 			var firstOperand = 123.1m;
