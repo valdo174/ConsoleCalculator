@@ -1,7 +1,7 @@
 ﻿using Calculator.Domain.Operations;
+using Calculator.Domain.Operations.Extensions;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Calculator.Domain.Parsers
 {
@@ -84,6 +84,40 @@ namespace Calculator.Domain.Parsers
 				result += operationStack.Pop() + " ";
 
 			return result;
+		}
+
+		public T Calculate(string reverseExpression)
+		{
+			var operationStack = new Stack<T>();
+
+			for (int i = 0; i < reverseExpression.Length; i++)
+			{
+				if (Char.IsDigit(reverseExpression[i]))
+				{
+					string number = string.Empty;
+
+					while (!IsDelimeter(reverseExpression[i]) 
+						&& !IsOperator(reverseExpression[i], out BaseOperation<T> oper))
+					{
+						number += reverseExpression[i];
+						i++;
+
+						if (i == reverseExpression.Length) 
+							break;
+					}
+
+					operationStack.Push((T)Convert.ChangeType(number.Replace('.', ','), typeof(T)));
+					i--;
+				}
+				else if (IsOperator(reverseExpression[i], out BaseOperation<T> operation))
+				{
+					var result = operation.GetOperationResultFromOperandsInStack(operationStack);
+
+					operationStack.Push(result);
+				}
+			}
+
+			return operationStack.Peek();
 		}
 
 		private bool IsDelimeter(char symbol)

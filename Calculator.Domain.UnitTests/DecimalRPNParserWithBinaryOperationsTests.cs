@@ -43,6 +43,17 @@ namespace Calculator.Domain.UnitTests
 		}
 
 		[Test]
+		public void Calculate_Expression_With_Two_Operands_Test()
+		{
+			var expression = "2+3";
+
+			var reverseExpression = _parser.Parse(expression);
+			var result = _parser.Calculate(reverseExpression);
+
+			Assert.AreEqual(5, result);
+		}
+
+		[Test]
 		public void Parse_Expression_With_Two_DecimalOperands_Test()
 		{
 			var expression = "2.0+3.0";
@@ -53,6 +64,17 @@ namespace Calculator.Domain.UnitTests
 		}
 
 		[Test]
+		public void Calculate_Expression_With_Two_DecimalOperands_Test()
+		{
+			var expression = "2.0+3.0";
+
+			var reverseExpression = _parser.Parse(expression);
+			var result = _parser.Calculate(reverseExpression);
+
+			Assert.AreEqual(5.0m, result);
+		}
+
+		[Test]
 		public void Parse_Expression_With_Two_DecimalAndIntegerOperands_Test()
 		{
 			var expression = "2.0+3";
@@ -60,6 +82,17 @@ namespace Calculator.Domain.UnitTests
 			var result = _parser.Parse(expression);
 
 			Assert.AreEqual($"2.0{_delimeter}3{_delimeter}+{_delimeter}", result);
+		}
+
+		[Test]
+		public void Calculate_Expression_With_Two_DecimalAndIntegerOperands_Test()
+		{
+			var expression = "2.0+3";
+
+			var reverseExpression = _parser.Parse(expression);
+			var result = _parser.Calculate(reverseExpression);
+
+			Assert.AreEqual(5.0m, result);
 		}
 
 		[Test]
@@ -80,6 +113,17 @@ namespace Calculator.Domain.UnitTests
 			var result = _parser.Parse(expression);
 
 			Assert.AreEqual($"5{_delimeter}2{_delimeter}+{_delimeter}123{_delimeter}*{_delimeter}", result);
+		}
+
+		[Test]
+		public void Calculate_Expression_With_Brackets_Test()
+		{
+			var expression = "(5+2)*123";
+
+			var reverseExpression = _parser.Parse(expression);
+			var result = _parser.Calculate(reverseExpression);
+
+			Assert.AreEqual(861, result);
 		}
 
 		[Test]
