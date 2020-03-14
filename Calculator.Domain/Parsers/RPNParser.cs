@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Calculator.Domain.Parsers
 {
 	/// <summary>
-	/// Reverse Polish Notation Prser
+	/// Reverse Polish Notation Parser
 	/// </summary>
 	public sealed class RPNParser : IParser
 	{
