@@ -43,5 +43,14 @@ namespace Calculator.Domain.UnitTests
 
 			Assert.AreEqual("5-2", formattedExpression);
 		}
+
+		[Test]
+		[TestCase("4*3 - 12")]
+		public void Trims_Expression_Test(string experssion)
+		{
+			var formattedExpression = _formatter.FormatExpression(experssion);
+
+			Assert.AreEqual("4*3-12", formattedExpression);
+		}
 	}
 }

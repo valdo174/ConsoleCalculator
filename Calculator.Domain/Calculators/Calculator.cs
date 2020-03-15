@@ -28,13 +28,15 @@ namespace Calculator.Domain.Calculators
 		{
 			try
 			{
+				expression = _formatter.FormatExpression(expression);
+
 				if (!_validator.BracketsValidation(expression))
 					throw new ExpressionFormatException("В данном выражении не одинаковое количество открытых и закрытых скобок.");
 
 				if (!_validator.ValidateAvailableOperation(expression, _parser.AvailableOperations))
 					throw new ExpressionFormatException("В данном выражении обнаружены операции, которые в данный момент не определены.");
 
-				var reverseExpression = _parser.Parse(_formatter.FormatExpression(expression));
+				var reverseExpression = _parser.Parse(expression);
 
 				return _parser.Calculate(reverseExpression);
 			}
