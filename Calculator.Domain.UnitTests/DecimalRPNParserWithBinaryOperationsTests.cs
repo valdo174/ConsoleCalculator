@@ -75,6 +75,27 @@ namespace Calculator.Domain.UnitTests
 		}
 
 		[Test]
+		public void Parse_Long_Expression_Test()
+		{
+			var expression = "80*0.5-15/3+40/5-(55/11+2)*4";
+
+			var result = _parser.Parse(expression);
+
+			Assert.AreEqual($"80 0.5 * 15 3 / - 40 5 / + 55 11 / 2 + 4 * - ".Replace(' ', _delimeter), result);
+		}
+
+		[Test]
+		public void Calculate_Long_Expression_Test()
+		{
+			var expression = "80*0.5-15/3+40/5-(55/11+2)*4";
+
+			var reverseExpression = _parser.Parse(expression);
+			var result = _parser.Calculate(reverseExpression);
+
+			Assert.AreEqual(15, result);
+		}
+
+		[Test]
 		public void Parse_Expression_With_Three_Operands_Test()
 		{
 			var expression = "3-1-2";
