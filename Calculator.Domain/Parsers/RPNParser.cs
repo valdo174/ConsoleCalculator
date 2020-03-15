@@ -67,8 +67,8 @@ namespace Calculator.Domain.Parsers
 				}
 				else if (IsOperator(expression[i], out BaseOperation<T> operation))
 				{
-					if (operationStack.Count > 0 &&
-							IsOperator(operationStack.Peek(), out BaseOperation<T> peekOperation))
+					if (operationStack.Count > 0 
+						&& IsOperator(operationStack.Peek(), out BaseOperation<T> peekOperation))
 					{
 						if (operation.Priority <= peekOperation.Priority)
 						{
@@ -94,7 +94,7 @@ namespace Calculator.Domain.Parsers
 			{
 				if (char.IsDigit(reverseExpression[i]))
 				{
-					string number = string.Empty;
+					var number = string.Empty;
 
 					while (!IsDelimeter(reverseExpression[i]) 
 						&& !IsOperator(reverseExpression[i], out BaseOperation<T> oper))

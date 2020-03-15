@@ -10,7 +10,10 @@ namespace Calculator.Domain.Operations.Extensions
 			{
 				var oper = (BinaryOperation<T>)operation;
 
-				return oper.Calculate(stack.Pop(), stack.Pop());
+				var secondOperand = stack.Pop();
+				var firstOperand = stack.Pop();
+
+				return oper.Calculate(firstOperand, secondOperand);
 			}
 
 			return default(T);

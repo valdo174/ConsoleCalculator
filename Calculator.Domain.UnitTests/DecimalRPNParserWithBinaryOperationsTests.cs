@@ -23,9 +23,9 @@ namespace Calculator.Domain.UnitTests
 			_binaryOperations = new List<BinaryOperation<decimal>>
 			{
 				new BinaryOperation<decimal>("+", 10, (a, b) => a + b),
-				new BinaryOperation<decimal>("-", 11, (a, b) => a - b),
+				new BinaryOperation<decimal>("-", 10, (a, b) => a - b),
 				new BinaryOperation<decimal>("*", 21, (a, b) => a * b),
-				new BinaryOperation<decimal>("/", 22, (a, b) => a / b),
+				new BinaryOperation<decimal>("/", 21, (a, b) => a / b),
 			};
 
 			_delimeter = ' ';
@@ -51,6 +51,48 @@ namespace Calculator.Domain.UnitTests
 			var result = _parser.Calculate(reverseExpression);
 
 			Assert.AreEqual(5, result);
+		}
+
+		[Test]
+		public void Parse_Expression_With_Three_Operands_And_Different_Operations_Test()
+		{
+			var expression = "1+2-3";
+
+			var result = _parser.Parse(expression);
+
+			Assert.AreEqual($"1 2 + 3 - ".Replace(' ', _delimeter), result);
+		}
+
+		[Test]
+		public void Calculate_Expression_With_Three_Operands_And_Different_Operations_Test()
+		{
+			var expression = "1+2-3";
+
+			var reverseExpression = _parser.Parse(expression);
+			var result = _parser.Calculate(reverseExpression);
+
+			Assert.AreEqual(0, result);
+		}
+
+		[Test]
+		public void Parse_Expression_With_Three_Operands_Test()
+		{
+			var expression = "3-1-2";
+
+			var result = _parser.Parse(expression);
+
+			Assert.AreEqual($"3 1 - 2 - ".Replace(' ', _delimeter), result);
+		}
+
+		[Test]
+		public void Calculate_Expression_With_Three_Operands_Test()
+		{
+			var expression = "3-1-2";
+
+			var reverseExpression = _parser.Parse(expression);
+			var result = _parser.Calculate(reverseExpression);
+
+			Assert.AreEqual(0, result);
 		}
 
 		[Test]

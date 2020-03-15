@@ -20,10 +20,10 @@ namespace Calculator.Domain.Calculators
 		{
 			try
 			{
-				if (_validator.BracketsValidation(expression))
+				if (!_validator.BracketsValidation(expression))
 					throw new ExpressionFormatException("В данном выражении не одинаковое количество открытых и закрытых скобок.");
 
-				if (_validator.ValidateAvailableOperation(expression, _parser.AvailableOperations))
+				if (!_validator.ValidateAvailableOperation(expression, _parser.AvailableOperations))
 					throw new ExpressionFormatException("В данном выражении обнаружены операции, которые в данный момент не определены.");
 
 				var reverseExpression = _parser.Parse(expression);
