@@ -1,4 +1,5 @@
-﻿using Calculator.Domain.Parsers;
+﻿using Calculator.Domain.Formatters;
+using Calculator.Domain.Parsers;
 using Calculator.Domain.Validators;
 using System;
 
@@ -10,10 +11,13 @@ namespace Calculator.Domain.Calculators
 
 		private readonly IParser<T> _parser;
 
-		public Calculator(IParser<T> parser, IExpressionsValidator<T> validator)
+		IExpressionFormatter _formatter;
+
+		public Calculator(IParser<T> parser, IExpressionsValidator<T> validator, IExpressionFormatter formatter)
 		{
 			_validator = validator;
 			_parser = parser;
+			_formatter = formatter;
 		}
 
 		public T Calculate(string expression)
@@ -26,7 +30,7 @@ namespace Calculator.Domain.Calculators
 				if (!_validator.ValidateAvailableOperation(expression, _parser.AvailableOperations))
 					throw new ExpressionFormatException("В данном выражении обнаружены операции, которые в данный момент не определены.");
 
-				var reverseExpression = _parser.Parse(expression);
+				var reverseExpression = _parser.Parse(_formatter.FormatExpression(expression));
 
 				return _parser.Calculate(reverseExpression);
 			}
