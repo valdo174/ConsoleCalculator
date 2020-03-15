@@ -36,7 +36,7 @@ namespace Calculator.Domain.Parsers
 				}
 				else if (char.IsDigit(expression[i]))
 				{
-					while (!IsOperator(expression[i], out BaseOperation<T> oper) 
+					while (!IsOperator(expression[i], out _) 
 						&& !IsDelimeter(expression[i])
 						&& !IsClosingBracket(expression[i])
 						&& !IsOpeningBracket(expression[i]))
@@ -48,7 +48,7 @@ namespace Calculator.Domain.Parsers
 							break;
 					}
 
-					result += " ";
+					result += _delimeter;
 					i--;
 				}
 				else if (IsOpeningBracket(expression[i]))
@@ -59,29 +59,33 @@ namespace Calculator.Domain.Parsers
 				{
 					var pop = operationStack.Pop();
 
-					while (!(IsOpeningBracket(pop)))
+					while (!IsOpeningBracket(pop))
 					{
-						result += pop.ToString() + ' ';
+						result += pop.ToString();
+						result += _delimeter;
+
 						pop = operationStack.Pop();
 					}
 				}
 				else if (IsOperator(expression[i], out BaseOperation<T> operation))
 				{
-					if (operationStack.Count > 0 
-						&& IsOperator(operationStack.Peek(), out BaseOperation<T> peekOperation))
+					while (operationStack.Count != 0
+							&& IsOperator(operationStack.Peek(), out BaseOperation<T> lastOperation)
+							&& lastOperation.Priority >= operation.Priority)
 					{
-						if (operation.Priority <= peekOperation.Priority)
-						{
-							result += operationStack.Pop().ToString() + " ";
-						}
+						result += operationStack.Pop();
+						result += _delimeter;
 					}
 
-					operationStack.Push(char.Parse(expression[i].ToString()));
+					operationStack.Push(expression[i]);
 				}
 			}
 
 			while (operationStack.Count > 0)
-				result += operationStack.Pop() + " ";
+			{
+				result += operationStack.Pop();
+				result += _delimeter;
+			}
 
 			return result;
 		}
