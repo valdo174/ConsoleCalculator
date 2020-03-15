@@ -10,7 +10,7 @@ namespace Calculator.Domain.UnitTests
 		[SetUp]
 		public void SetUp()
 		{
-			_formatter = new ExpressionFomatter();
+			_formatter = new ExpressionFormatter();
 		}
 
 		[Test]
