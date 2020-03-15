@@ -15,6 +15,11 @@ namespace Calculator.Domain.Parsers
 		private const char _openingBracket = '(';
 		private const char _closingBracket = ')';
 
+		/// <summary>
+		/// Инициалзизирует парсер для обратной польской нотации
+		/// </summary>
+		/// <param name="availableOperations">Список досупных операций</param>
+		/// <param name="delimeter">Разделитель для результирующих выражений</param>
 		public RPNParser(IEnumerable<BaseOperation<T>> availableOperations, char delimeter = ' ')
 		{
 			AvailableOperations = availableOperations;
@@ -69,6 +74,8 @@ namespace Calculator.Domain.Parsers
 				}
 				else if (IsOperator(expression[i], out BaseOperation<T> operation))
 				{
+					// Если в стеке остались операции с приоритетом выше текущей операции,
+					// то добавляем их в результирующее выражение
 					while (operationStack.Count != 0
 							&& IsOperator(operationStack.Peek(), out BaseOperation<T> lastOperation)
 							&& lastOperation.Priority >= operation.Priority)

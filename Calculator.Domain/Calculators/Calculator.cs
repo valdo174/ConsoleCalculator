@@ -5,13 +5,17 @@ using System;
 
 namespace Calculator.Domain.Calculators
 {
+	/// <summary>
+	/// Базовая реализация калькулятора
+	/// </summary>
+	/// <typeparam name="T"></typeparam>
 	public class Calculator<T> : ICalculator<T>
 	{
 		private readonly IExpressionsValidator<T> _validator;
 
 		private readonly IParser<T> _parser;
 
-		IExpressionFormatter _formatter;
+		private readonly IExpressionFormatter _formatter;
 
 		public Calculator(IParser<T> parser, IExpressionsValidator<T> validator, IExpressionFormatter formatter)
 		{

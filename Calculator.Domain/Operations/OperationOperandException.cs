@@ -2,6 +2,9 @@
 
 namespace Calculator.Domain.Operations
 {
+	/// <summary>
+	/// Исключение, возникающее при определении операндов оператора
+	/// </summary>
 	public class OperationOperandException : OperationException
 	{
 		public OperationOperandException(string message) : base(message)

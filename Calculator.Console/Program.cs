@@ -40,6 +40,7 @@ namespace Calculator.Console
 		{
 			var formatter = new ExpressionFormatter();
 
+			// Список доступных операций
 			var binaryOperations = new List<BinaryOperation<decimal>>
 			{
 				new BinaryOperation<decimal>("+", 10, (a, b) => a + b),

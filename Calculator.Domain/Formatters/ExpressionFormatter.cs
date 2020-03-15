@@ -1,5 +1,8 @@
 ﻿namespace Calculator.Domain.Formatters
 {
+	/// <summary>
+	/// Базовый форматтер
+	/// </summary>
 	public class ExpressionFormatter : IExpressionFormatter
 	{
 		public string FormatExpression(string expression)
